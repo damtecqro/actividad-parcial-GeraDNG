@@ -1,8 +1,9 @@
 package com.test.pokedex.Activities
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,6 @@ import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
 import com.test.pokedex.Adapters.AdapterList
 import com.test.pokedex.R
-
 import kotlinx.android.synthetic.main.activity_list.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -46,10 +46,6 @@ class ActivityList : AppCompatActivity() {
     }
 
     fun initializeListeners(){
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 
     fun initializeData(){
@@ -58,7 +54,7 @@ class ActivityList : AppCompatActivity() {
             .asJsonObject()
             .done { e, result ->
                 if(e == null){
-                    Log.i("Salida", result.getAsJsonArray("results").size().toString())
+                    Log.i("Salidas", result.toString())
                     data = result.getAsJsonArray("results")
                     initializeList()
                 }

@@ -12,23 +12,27 @@
         android:id="@+id/pokemon_image"
         android:src="@drawable/pokemon_logo_min"
         android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="@color/colorPrimaryText"
         android:text="Pokemon"
         android:gravity="center"
         android:padding="16dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/colorSecondaryText"
         android:id="@+id/pokemon_name"
         />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"

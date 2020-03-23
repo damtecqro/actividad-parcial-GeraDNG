@@ -1,6 +1,8 @@
 package com.test.pokedex.Adapters
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Typeface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.koushikdutta.ion.Ion
+import com.test.pokedex.Activities.ActivityDisplayPokemon
 import com.test.pokedex.R
+import org.json.JSONObject
 
 class AdapterList :RecyclerView.Adapter<AdapterList.ViewHolder>() {
 
@@ -37,9 +40,7 @@ class AdapterList :RecyclerView.Adapter<AdapterList.ViewHolder>() {
 
     override fun onBindViewHolder(holder: AdapterList.ViewHolder, position: Int) {
         var item:JsonObject = data.get(position).asJsonObject
-
         holder.bind(item,context)
-
     }
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
@@ -65,20 +66,55 @@ class AdapterList :RecyclerView.Adapter<AdapterList.ViewHolder>() {
                                     .error(R.drawable.pokemon_logo_min)
                                     .into(imagePokemon);
 
+                                imagePokemon.setOnClickListener { view ->
+                                    val intent: Intent = Intent( this.imagePokemon.context, ActivityDisplayPokemon::class.java );
+                                    intent.putExtra("URL", item.get("url").asString);
+                                    this.imagePokemon.context.startActivity(intent);
+                                }
 
-                            }else{
+                                /*
+                                imagePokemon.setOnClickListener { view ->
+                                    val intent: Intent = Intent(this.imagePokemon.context, ActivityDisplayPokemon::class.java);
+                                    intent.putExtra("numero", result.get("id").asString);
+                                    intent.putExtra("nombre", result.get("name").asString);
+                                    intent.putExtra("imagen", result.get("sprites").asJsonObject.get("front_default").asString);
+
+                                    fun guardarEnString (datoBuscado: String, subArray: String, atributo: String) : String {
+                                        var stringParaGuardar: String = "";
+                                        for ( i in 0 until result.getAsJsonArray(datoBuscado).size() ) {
+                                            stringParaGuardar += result.getAsJsonArray(datoBuscado)[i].asJsonObject.get(subArray).asJsonObject.get(atributo).asString;
+                                            stringParaGuardar += "\n";
+                                        }
+                                        return stringParaGuardar;
+                                    }
+
+                                    var tipos: String = "";
+                                    tipos = guardarEnString("types", "type", "name");
+                                    intent.putExtra("tipos", tipos);
+
+                                    var estadisticas: String = "";
+                                    estadisticas = guardarEnString("stats", "stat", "name");
+                                    intent.putExtra("estadisticas", estadisticas);
+
+                                    var movimientos: String = "";
+                                    movimientos = guardarEnString("moves", "move", "name");
+                                    intent.putExtra("movimientos", movimientos);
+
+                                    this.imagePokemon.context.startActivity(intent);
+                                }
+                                */
+
+                            }
+                            else {
                                 imagePokemon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.pokemon_logo_min))
                             }
-
-                        }else{
+                        }
+                        else {
                             imagePokemon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.pokemon_logo_min))
                         }
-
                     }
                 }
-
         }
-
     }
 
 
